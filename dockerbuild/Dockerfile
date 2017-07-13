@@ -1,0 +1,14 @@
+ARG JBOSS_HOME=/opt/eap
+ARG SCRIPTS_HOME=${JBOSS_HOME}/scripts
+ARG HARDENING_SCRIPT=execute-hardening.sh
+ARG HARDENING_CONFIGS=jboss-hardening-configs.cli
+
+FROM <neiloy-nameofbaseimagegoeshere>
+
+RUN mkdir ${SCRIPTS_HOME}
+ADD ${HARDENING_SCRIPT} ${SCRIPTS_HOME}
+ADD ${HARDENING_CONFIGS} ${SCRIPTS_HOME}
+
+RUN chmod +x ${SCRIPTS_HOME}/${HARDENING_SCRIPT}
+RUN ${SCRIPTS_HOME}/${HARDENING_SCRIPT}
+

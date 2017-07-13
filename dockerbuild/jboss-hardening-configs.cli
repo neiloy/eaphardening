@@ -1,0 +1,59 @@
+# EAP Hardening CLI Script
+connect
+batch
+
+
+#Silent Authentication must be removed from the Default Application Security Realm.
+/core-service=management/security-realm=ApplicationRealm/authentication=local:remove
+
+#Silent Authentication must be removed from the Default Management Security Realm.
+/core-service=management/security-realm=ManagementRealm/authentication=local:remove
+
+#The JBoss server must be configured with Role Based Access Controls.
+/core-service=management/access=authorization:write-attribute(name=provider, value=rbac)
+
+#The JBoss server must generate log records for access and authentication events to the management interface.
+#JBoss must be configured to initiate session logging upon startup.
+#JBoss must be configured to log the IP address of the remote system connecting to the JBoss system/cluster.
+#JBoss must be configured to produce log records containing information to establish what type of events occurred.
+#JBoss Log Formatter must be configured to produce log records that establish the date and time the events occurred.
+#JBoss must be configured to record the IP address and port information used by management interface network traffic.
+#The application server must produce log records that contain sufficient information to establish the outcome of events.
+#The JBoss server must be configured to log all admin activity.
+#Production JBoss servers must log when failed application deployments occur.
+#Production JBoss servers must log when successful application deployments occur.
+#JBoss must be configured to generate log records when successful/unsuccessful attempts to modify privileges occur.
+#JBoss must be configured to generate log records when successful/unsuccessful attempts to delete privileges occur.
+#JBoss must be configured to generate log records when successful/unsuccessful logon attempts occur.
+#JBoss must be configured to generate log records for privileged activities.
+#JBoss must be configured to generate log records that show starting and ending times for access to the application server management interface.
+#JBoss must be configured to generate log records when concurrent logons from different workstations occur to the application server management interface.
+#JBoss must be configured to generate log records for all account creations, modifications, disabling, and termination events.
+/core-service=management/access=audit/logger=audit-log:write-attribute(name=enabled,value=true)
+
+#JBoss ROOT logger must be configured to utilize the appropriate logging level.
+/subsystem=logging/root-logger=ROOT:write-attribute(name=level,value=INFO)
+
+#Remote access to JMX subsystem must be disabled.
+/subsystem=jmx/remoting-connector=jmx:remove
+
+#Welcome Web Application must be disabled.
+/subsystem=web/virtual-server=default-host:write-attribute(name=enable-welcome-root,value=false)
+
+#Network access to HTTP management must be disabled on domain-enabled application servers not designated as the domain controller.
+/core-service=management/management-interface=http-interface/:write-attribute(name=console-enabled,value=false)
+
+#The application server must prevent non-privileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures.
+/core-service=management/access-authorization:write-attribute(name=provider, value=rbac)
+
+#Production JBoss servers must not allow automatic application deployment.
+/subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-enabled,value=false)
+
+#periodic rotating logs, seen in xml by default
+#/subsystem=logging/periodic-rotating-file-handler=STIG_WEEKLY_HANDLER:add(file=relative-to=jboss.server.log.dir,suffix=.yyyy-MM-dd)
+#/subsystem=logging/root-logger=ROOT:add-handler(name=STIG_WEEKLY_HANDLER)
+
+# Execute and reload
+run-batch
+:reload
+
