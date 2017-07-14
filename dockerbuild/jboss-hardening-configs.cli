@@ -10,7 +10,7 @@ batch
 /core-service=management/security-realm=ManagementRealm/authentication=local:remove
 
 #The JBoss server must be configured with Role Based Access Controls.
-/core-service=management/access-authorization:write-attribute(name=provider, value=rbac)
+/core-service=management/access=authorization:write-attribute(name=provider, value=rbac)
 
 #The JBoss server must generate log records for access and authentication events to the management interface.
 #JBoss must be configured to initiate session logging upon startup.
@@ -44,7 +44,7 @@ batch
 /core-service=management/management-interface=http-interface/:write-attribute(name=console-enabled,value=false)
 
 #The application server must prevent non-privileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures.
-/core-service=management/access-authorization:write-attribute(name=provider, value=rbac)
+/core-service=management/access=authorization:write-attribute(name=provider, value=rbac)
 
 #Production JBoss servers must not allow automatic application deployment.
 /subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-enabled,value=false)
