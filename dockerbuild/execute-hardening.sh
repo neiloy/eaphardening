@@ -15,7 +15,8 @@ echo "=> Starting WildFly server"
 $JBOSS_HOME/bin/$JBOSS_MODE.sh -c $JBOSS_CONFIG > /dev/null &
 
 echo "=> Waiting for the server to boot"
-wait_for_server
+#wait_for_server
+sleep 60
 
 echo "=> Executing the commands"
 $JBOSS_CLI --file=`dirname "$0"`/jboss-hardening-configs.cli
