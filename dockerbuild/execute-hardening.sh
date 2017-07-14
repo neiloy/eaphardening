@@ -6,13 +6,13 @@ JBOSS_MODE=${1:-"standalone"}
 JBOSS_CONFIG=${2:-"$JBOSS_MODE.xml"}
 
 function wait_for_server() {
-    until `$JBOSS_CLI -c "ls /deployment" &> /dev/null`; do
+    until `$JBOSS_CLI -c`; do
         sleep 1
     done
 }
 
 echo "=> Starting WildFly server"
-$JBOSS_HOME/bin/$JBOSS_MODE.sh -c $JBOSS_CONFIG >dev/null &
+$JBOSS_HOME/bin/$JBOSS_MODE.sh -c $JBOSS_CONFIG > /dev/null &
 
 echo "=> Waiting for the server to boot"
 wait_for_server
