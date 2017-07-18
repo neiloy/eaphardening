@@ -4,10 +4,12 @@ batch
 
 
 #Silent Authentication must be removed from the Default Application Security Realm.
-/core-service=management/security-realm=ApplicationRealm/authentication=local:remove
+#/core-service=management/security-realm=ApplicationRealm/authentication=local:remove
+#neiloy 201707181012
 
 #Silent Authentication must be removed from the Default Management Security Realm.
-/core-service=management/security-realm=ManagementRealm/authentication=local:remove
+#/core-service=management/security-realm=ManagementRealm/authentication=local:remove
+#neiloy 201707181012
 
 #The JBoss server must be configured with Role Based Access Controls.
 /core-service=management/access=authorization:write-attribute(name=provider, value=rbac)

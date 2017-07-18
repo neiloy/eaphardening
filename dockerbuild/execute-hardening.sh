@@ -5,7 +5,7 @@ JBOSS_CLI=$JBOSS_HOME/bin/jboss-cli.sh
 JBOSS_MODE=${1:-"standalone"}
 
 echo "=> Starting WildFly server"
-$JBOSS_HOME/bin/$JBOSS_MODE.sh
+$JBOSS_HOME/bin/$JBOSS_MODE.sh &
 
 echo "=> Waiting for the server to boot"
 sleep 60
