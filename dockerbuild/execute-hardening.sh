@@ -18,7 +18,7 @@ echo "=> Waiting for the server to boot"
 sleep 60
 
 echo "=> Executing the commands"
-#$JBOSS_CLI --file=`dirname "$0"`/jboss-hardening-configs.cli
+$JBOSS_CLI --file=`dirname "$0"`/jboss-hardening-configs.cli &
 
 echo "=> Shutting down WildFly"
 if [ "$JBOSS_MODE" = "standalone" ]; then
