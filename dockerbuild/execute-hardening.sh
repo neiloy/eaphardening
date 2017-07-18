@@ -22,8 +22,8 @@ echo "=> Executing the commands"
 
 echo "=> Shutting down WildFly"
 if [ "$JBOSS_MODE" = "standalone" ]; then
-  $JBOSS_CLI -c ":shutdown"
+  $JBOSS_CLI -c ":shutdown" &
 else
-  $JBOSS_CLI -c "/host=*:shutdown"
+  $JBOSS_CLI -c "/host=*:shutdown" &
 fi
 
