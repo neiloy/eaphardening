@@ -40,7 +40,7 @@ batch
 #neiloy 201707181024
 
 #Remote access to JMX subsystem must be disabled.
-#/subsystem=jmx/remoting-connector=jmx:remove
+/subsystem=jmx/remoting-connector=jmx:remove
 #neiloy 201707181052
 
 #Welcome Web Application must be disabled.
@@ -56,8 +56,10 @@ batch
 #neiloy 201707181024
 
 #Production JBoss servers must not allow automatic application deployment.
-#/subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-enabled,value=false)
+/subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-enabled,value=false)
 #neiloy 201707181052
+/subsystem=deployment-scanner/scanner=default:write-attribute(name=scan-interval,value=2017)
+#neiloy 201707181330 -- confirmable change
 
 #periodic rotating logs, seen in xml by default
 #/subsystem=logging/periodic-rotating-file-handler=STIG_WEEKLY_HANDLER:add(file=relative-to=jboss.server.log.dir,suffix=.yyyy-MM-dd)
