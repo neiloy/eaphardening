@@ -11,7 +11,7 @@ function wait_for_server() {
 }
 
 function run_CLI_CMD () {
-  if ! $JBOSS_HOME/bin/jboss-cli.sh --connect --command="$1" | grep --quiet -E "success"; then
+  if ! $JBOSS_HOME/bin/jboss-cli.sh --connect --command="$1" & | grep --quiet -E "success"; then
       echo_func "Command failed to execute CLI command \"$1\" properly. Please consult $JBOSS_HOME/standalone/log/server.log  Quiting..." "RED"
       echo_func $($JBOSS_HOME/bin/jboss-cli.sh --connect --command="$1")
       fail_exit_and_kill_JBOSS
